@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather News</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="default-bg">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <h2 class="logo">Weather App</h2>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="map.html">Map</a></li>
+        <li><a href="news.html">News</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- News Section -->
+  <div class="container" id="news-container">
+    <h1>📰 Latest Weather News</h1>
+    <p>Fetching real-time weather news for you...</p>
+  </div>
+
+  <script>
+    const apiKey = "YOUR_API_KEY"; // Use your existing API key here
+    const container = document.getElementById('news-container');
+
+    async function fetchNews() {
+      try {
+        const res = await fetch(`https://newsapi.org/v2/everything?q=weather&sortBy=publishedAt&apiKey=${newsApiKey}`);
+        const data = await res.json();
+        const articles = data.articles;
+
+        let html = "<h1>📰 Latest Weather News</h1><ul>";
+        articles.forEach(article => {
+          html += `
+            <li style="margin-bottom: 10px;">
+              <a href="${article.url}" target="_blank"><strong>${article.title}</strong></a><br/>
+              <small>${new Date(article.publishedAt).toLocaleString()}</small><br/>
+              <p>${article.description || ''}</p>
+            </li>`;
+        });
+        html += "</ul>";
+        container.innerHTML = html;
+      } catch (error) {
+        container.innerHTML = "<p>Failed to load news. Please try again later.</p>";
+        console.error("Error fetching news:", error);
+      }
+    }
+
+    fetchNews();
+  </script>
+
+</body>
+</html>
