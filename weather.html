@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Details</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Weather Details</h2>
+        <div id="weatherResult">Loading...</div>
+        <br>
+        <a href="index.html">Go Back</a>
+    </div>
+
+    <script>
+        const apiKey = "d40420b0536b040d8e93a200fe16e01b"; // Your API Key
+
+        async function getWeather(city) {
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error("City not found");
+                const data = await response.json();
+
+                const temp = data.main.temp;
+                const humidity = data.main.humidity;
+                const condition = data.weather[0].description;
+                const country = data.sys.country;
+
+                document.getElementById("weatherResult").innerHTML = `
+                    <h3>${city}, ${country}</h3>
+                    <p>Temperature: ${temp}°C</p>
+                    <p>Humidity: ${humidity}%</p>
+                    <p>Condition: ${condition}</p>
+                `;
+            } catch (error) {
+                document.getElementById("weatherResult").innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            }
+        }
+
+        // Extract city name from URL and fetch weather data
+        const urlParams = new URLSearchParams(window.location.search);
+        const city = urlParams.get("city");
+        if (city) {
+            getWeather(city);
+        } else {
+            document.getElementById("weatherResult").innerHTML = "<p style='color: red;'>No city provided.</p>";
+        }
+    </script>
+</body>
+</html>

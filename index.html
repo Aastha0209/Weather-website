@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Weather App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="default-bg">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h2 class="logo">Weather App</h2>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="map.html">Map</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Wrapper for Centering Container -->
+    <div class="main-wrapper">
+        <div class="container">
+            <h1>🌤 Weather App</h1>
+            <p>Get real-time weather updates</p>
+
+            <!-- Search Box -->
+            <div class="search-box">
+                <input type="text" id="cityInput" placeholder="Enter city name...">
+                <button id="searchButton">🔍 Search</button>
+            </div>
+
+            <!-- Weather Info -->
+            <div id="weather-info" class="hidden">
+                <h2 id="city-name"></h2>
+                <p id="temperature"></p>
+                <p id="condition"></p>
+            </div>
+
+            <!-- Default Cities Weather -->
+            <h2>Popular Cities</h2>
+            <div class="city-weather-container">
+                <div class="city-weather" id="city1" onclick="searchWeatherForCity('New York')"></div>
+                <div class="city-weather" id="city2" onclick="searchWeatherForCity('London')"></div>
+                <div class="city-weather" id="city3" onclick="searchWeatherForCity('Tokyo')"></div>
+                <div class="city-weather" id="city4" onclick="searchWeatherForCity('Mumbai')"></div>
+            </div>
+
+            <!-- Trending Weather News Section -->
+            <h2 id="trending-title">🌎 Trending Weather News</h2>
+            <div class="news-wrapper">
+                <button id="scroll-left" class="scroll-btn">◀</button>
+                <div id="news-feed"></div>
+                <button id="scroll-right" class="scroll-btn">▶</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
